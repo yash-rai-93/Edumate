@@ -6,19 +6,23 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
+from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
 
 # Load environment variables
 load_dotenv()
 
 class EduMateRAG:
     def __init__(self):
-        # 1. Setup Embeddings (Free & Local)
-        # Yeh text ko numbers (vectors) mein convert karega
-        print("Initializing Embeddings...")
-        self.embeddings = HuggingFaceEmbeddings(
-            model_name="sentence-transformers/all-MiniLM-L6-v2"
-        )
+        print("Initializing Embeddings (via Hugging Face API)...")
+        
+        hf_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")
+        if not hf_token:
+            raise ValueError("HUGGINGFACEHUB_API_TOKEN not found in environment variables!")
 
+        self.embeddings = HuggingFaceInferenceAPIEmbeddings(
+            api_key=hf_token,
+            model_name="sentence-transformers/all-MiniLM-L6-v2")
+        
         # 2. Setup LLM (Groq - Free Tier)
         # Yeh actual answer generate karega
         api_key = os.getenv("GROQ_API_KEY")
