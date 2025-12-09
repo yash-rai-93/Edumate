@@ -1,0 +1,61 @@
+CLASS X-B TIMETABLE (8 PERIODS DAILY) — FULL SUBJECT NAMES
+
+MONDAY
+1. Hindi
+2. Games
+3. Mathematics
+4. Chemistry
+5. English
+6. Social Science
+7. Information Technology
+8. Economics
+
+TUESDAY
+1. Hindi
+2. Games
+3. Mathematics
+4. Chemistry
+5. English
+6. Social Science
+7. Biology
+8. Economics
+
+WEDNESDAY
+1. Hindi
+2. Mathematics
+3. Mathematics
+4. Chemistry
+5. English
+6. Social Science
+7. Biology
+8. Information Technology
+
+THURSDAY
+1. Hindi
+2. Mathematics
+3. Mathematics
+4. Physics
+5. English
+6. Social Science
+7. English
+8. Information Technology
+
+FRIDAY
+1. Hindi
+2. Social Science
+3. Mathematics
+4. Physics
+5. English
+6. CCA
+7. Biology
+8. Information Technology
+
+SATURDAY
+1. Hindi
+2. Library
+3. Mathematics
+4. Physics
+5. English
+6. CCA
+7. Social Science
+8. Information Technology

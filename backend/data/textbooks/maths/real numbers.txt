@@ -1,0 +1,145 @@
+CLASS 10 MATHS – CHAPTER: REAL NUMBERS (RATIONAL & IRRATIONAL)  
+EXTENSIVE NOTES
+
+---------------------------------------------------
+1. Rational Numbers
+---------------------------------------------------
+A rational number is any number that can be written in the form p/q, where:
+- p and q are integers
+- q ≠ 0
+
+Examples:
+1/2, -3/5, 7, 0, 4.25 (= 17/4)
+
+Properties:
+- Every integer is a rational number.
+- Rational numbers can be terminating or recurring decimals.
+
+Terminating decimal: 0.25, 1.75  
+Recurring decimal: 0.333..., 2.717171...
+
+---------------------------------------------------
+2. Irrational Numbers
+---------------------------------------------------
+A number that cannot be written in the form p/q.  
+Its decimal expansion is non-terminating and non-repeating.
+
+Examples:
+√2, √5, π, 0.1010010001...
+
+---------------------------------------------------
+3. Real Numbers
+---------------------------------------------------
+All rational and irrational numbers together form the set of real numbers.
+
+Real numbers can be represented on the number line.
+
+---------------------------------------------------
+4. Decimal Expansions
+---------------------------------------------------
+A rational number p/q has:
+A. Terminating decimal expansion iff  
+   the prime factors of q are ONLY 2 or 5.  
+   Example: 7/8 → 0.875 (denominator: 2³)
+
+B. Non-terminating recurring decimal expansion iff  
+   q has primes other than 2 or 5.  
+   Example: 5/11 → 0.454545...
+
+---------------------------------------------------
+5. Euclid’s Division Lemma
+---------------------------------------------------
+Given two positive integers a and b, there exist unique integers q and r such that:
+a = bq + r  
+where 0 ≤ r < b
+
+Used to find:
+- HCF (GCD) of two numbers  
+- To prove irrationality
+
+---------------------------------------------------
+6. Euclid’s Division Algorithm (for HCF)
+---------------------------------------------------
+Steps:
+1. Apply a = bq + r  
+2. Replace a with b, b with r  
+3. Repeat until r = 0  
+4. Last non-zero remainder = HCF
+
+Example: HCF(225, 135)
+225 = 135×1 + 90  
+135 = 90×1 + 45  
+90 = 45×2 + 0  
+HCF = 45
+
+---------------------------------------------------
+7. Fundamental Theorem of Arithmetic
+---------------------------------------------------
+Every composite number can be expressed uniquely as a product of prime numbers (apart from order).
+
+Example:
+140 = 2² × 5 × 7  
+980 = 2² × 5 × 7²
+
+Applications:
+- Finding HCF  
+- Finding LCM  
+- Proving irrationality  
+- Terminating/non-terminating decimals
+
+---------------------------------------------------
+8. Proving Irrationality
+---------------------------------------------------
+Most common proofs:
+1. √2 is irrational  
+2. √3 is irrational  
+3. √5 is irrational  
+
+General method:
+- Assume √n = p/q  
+- Square both sides  
+- Reach contradiction  
+- Conclude √n is irrational
+
+---------------------------------------------------
+9. Relationship Between HCF and LCM
+---------------------------------------------------
+For any two positive integers a and b:
+HCF(a, b) × LCM(a, b) = a × b
+
+Example:
+a = 12, b = 18  
+HCF = 6, LCM = 36  
+6 × 36 = 12 × 18 = 216
+
+---------------------------------------------------
+10. Important Examples
+---------------------------------------------------
+1. Show that 1.1010010001… is irrational.  
+   → Non-terminating, non-repeating decimal.
+
+2. Write 2.75 in p/q form.  
+   → 2.75 = 275/100 = 11/4
+
+3. For 17/8, check decimal expansion.  
+   → 8 = 2³ → terminating.
+
+4. For 21/14, simplify first.  
+   → = 3/2 → terminating.
+
+---------------------------------------------------
+11. Key Points to Remember
+---------------------------------------------------
+- Rational → terminating or recurring decimals  
+- Irrational → non-terminating, non-recurring  
+- Euclid’s lemma used for HCF  
+- Prime factorization used for LCM and terminating decimal test  
+- √(non-perfect square) = irrational  
+
+---------------------------------------------------
+12. Formula List
+---------------------------------------------------
+a = bq + r  
+HCF × LCM = a × b  
+Terminating decimal condition: q = 2ᵐ × 5ⁿ  
+

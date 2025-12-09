@@ -1,0 +1,65 @@
+const API_URL = "http://127.0.0.1:8000/ask";
+
+function appendMessage(text, sender) {
+    const box = document.getElementById("chat-box");
+
+    const msg = document.createElement("div");
+    msg.classList.add("message", sender);
+    msg.textContent = text;
+
+    box.appendChild(msg);
+    box.scrollTop = box.scrollHeight;
+}
+
+function showTyping() {
+    const box = document.getElementById("chat-box");
+
+    const typing = document.createElement("div");
+    typing.classList.add("message", "bot");
+    typing.id = "typing";
+
+    typing.innerHTML = `
+        <div class="typing">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    `;
+
+    box.appendChild(typing);
+    box.scrollTop = box.scrollHeight;
+}
+
+function removeTyping() {
+    const el = document.getElementById("typing");
+    if (el) el.remove();
+}
+
+async function sendMessage() {
+    const input = document.getElementById("user-input");
+    const message = input.value.trim();
+    if (!message) return;
+
+    appendMessage(message, "user");
+    input.value = "";
+
+    showTyping(); // show loading dots
+
+    try {
+        const res = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question: message })
+        });
+
+        const data = await res.json();
+
+        removeTyping();
+
+        appendMessage(data.answer, "bot");
+
+    } catch (error) {
+        removeTyping();
+        appendMessage("⚠️ Error contacting server.", "bot");
+    }
+}

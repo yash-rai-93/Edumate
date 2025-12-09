@@ -1,0 +1,154 @@
+UNIT I – NUMBER SYSTEMS (6 Marks)
+Chapter: Real Numbers
+
+You will study:
+
+Fundamental Theorem of Arithmetic
+
+Prime factorisation applications
+
+Proofs of irrationality (√2, √3, √5, etc.)
+
+Using factorisation to solve real-life problems
+
+UNIT II – ALGEBRA (20 Marks)
+Chapter 1: Polynomials
+
+You will study:
+
+Zeros of polynomials
+
+Graphical meaning of zeros
+
+Relationship between zeros & coefficients (quadratic only)
+
+Chapter 2: Pair of Linear Equations in Two Variables
+
+You will study:
+
+Graphical method of solution
+
+Conditions of consistency
+
+Algebraic solutions: substitution & elimination
+
+Word problems
+
+Chapter 3: Quadratic Equations
+
+You will study:
+
+Standard form
+
+Solving by factorization & quadratic formula
+
+Nature of roots using discriminant
+
+Real-life problem solving
+
+Chapter 4: Arithmetic Progressions (AP)
+
+You will study:
+
+nth term of AP
+
+Sum of n terms of AP
+
+Daily-life applications
+
+UNIT III – COORDINATE GEOMETRY (6 Marks)
+Chapter: Coordinate Geometry
+
+You will study:
+
+Distance formula
+
+Section formula (internal division)
+
+Applying these to solve geometry problems
+
+UNIT IV – GEOMETRY (15 Marks)
+Chapter 1: Similar Triangles
+
+You will study:
+
+Meaning of similarity
+
+Basic Proportionality Theorem (BPT) — Proof & applications
+
+Criteria of similarity (AA, SSS, SAS)
+
+Using similarity in problems
+
+Chapter 2: Circles (Tangent Theorems)
+
+You will study:
+
+Tangent is perpendicular to radius
+
+Lengths of tangents from an external point are equal
+
+Related problem solving
+
+UNIT V – TRIGONOMETRY (12 Marks)
+Chapter 1: Introduction to Trigonometry
+
+You will study:
+
+Trigonometric ratios of right triangles
+
+Ratios at 0°, 30°, 45°, 60°, 90°
+
+Relationships between ratios
+
+Chapter 2: Trigonometric Identities
+
+You will study:
+
+sin²A + cos²A = 1
+
+Using simple identities to solve problems
+
+Chapter 3: Heights & Distances
+
+You will study:
+
+Angle of elevation & depression
+
+Solving real-world problems using trigonometry
+
+UNIT VI – MENSURATION (10 Marks)
+Chapter 1: Areas Related to Circles
+
+You will study:
+
+Sector & segment of a circle
+
+Problems involving circle parts (60°, 90°, 120° angles only)
+
+Chapter 2: Surface Areas & Volumes
+
+You will study:
+
+Combinations of solids (cube, cuboid, sphere, cone, cylinder)
+
+Surface area & volume calculations
+
+UNIT VII – STATISTICS & PROBABILITY (11 Marks)
+Chapter 1: Statistics
+
+You will study:
+
+Mean (direct, assumed mean, step deviation)
+
+Median & mode of grouped data
+
+Interpreting real-life data
+
+Chapter 2: Probability
+
+You will study:
+
+Classical definition
+
+Simple problems (coins, dice, cards, daily-life events)

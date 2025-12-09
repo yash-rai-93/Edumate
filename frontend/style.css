@@ -1,0 +1,95 @@
+body {
+    background: #f2f4f8;
+    font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.header {
+    background: #4285f4;
+    color: white;
+    padding: 15px;
+    margin: 0;
+    text-align: center;
+    font-size: 24px;
+}
+
+.chat-box {
+    height: 80vh;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.message {
+    padding: 12px;
+    max-width: 70%;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+.user {
+    background: #d8e9ff;
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+.bot {
+    background: #e8e8e8;
+    margin-right: auto;
+}
+
+.input-area {
+    display: flex;
+    padding: 10px;
+    background: white;
+    border-top: 1px solid #ccc;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    background: #4285f4;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+/* --------------------------- */
+/* Typing Indicator Animation  */
+/* --------------------------- */
+
+.typing {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background: #666;
+    border-radius: 50%;
+    animation: blink 1.4s infinite both;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes blink {
+    0% { opacity: 0.2; }
+    20% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
