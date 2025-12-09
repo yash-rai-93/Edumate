@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000/ask";
+const API_URL = "/ask";
 
 // 1. Generate a random Session ID when the page loads
 const sessionId = "session_" + Math.random().toString(36).substr(2, 9);

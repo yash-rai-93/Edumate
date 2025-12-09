@@ -45,11 +45,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from rag_pipeline import EduMateRAG
 import uvicorn
+from fastapi.staticfiles import StaticFiles  
+from fastapi.responses import FileResponse
 from typing import Optional
 import datetime
 import re
 import os
+
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
 
 app.add_middleware(
     CORSMiddleware,
@@ -153,9 +158,11 @@ def ask(query: Query):
 def study_plan(req: PlanRequest):
     return {"answer": rag.generate_study_plan(req.subject, req.days)}
 
-@app.get("/")
-def root():
+@app.get("/health")
+def health_check():
     return {"message": "EduMate RAG Bot is running!"}
-
+@app.get("/")
+def read_root():
+    return FileResponse("frontend/index.html")
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
