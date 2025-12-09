@@ -46,7 +46,9 @@ from pydantic import BaseModel
 from rag_pipeline import EduMateRAG
 import uvicorn
 from typing import Optional
-
+import datetime
+import re
+import os
 app = FastAPI()
 
 app.add_middleware(
@@ -66,7 +68,60 @@ sessions = {}
 class Query(BaseModel):
     question: str
     session_id: str  # <--- New Field
+# --- HELPER: Calculate Exam Countdown ---
+def get_exam_countdown():
+    schedule_path = "data/exam_schedule/Schedule.txt"
+    if not os.path.exists(schedule_path):
+        return "Exam schedule file not found!"
 
+    with open(schedule_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    # Regex to find dates like "February 17, 2026"
+    # Adjust regex matches based on your Schedule.txt format
+    today = datetime.date.today()
+    response_text = "📅 **Exam Countdown:**\n"
+    
+    lines = content.split('\n')
+    upcoming_exams = []
+
+    for line in lines:
+        if ":" in line and "2026" in line:  # Simple check for exam lines
+            parts = line.split(":")
+            subject = parts[0].strip()
+            date_str = parts[1].strip()  # e.g., "Tuesday, February 17, 2026"
+            
+            try:
+                # Parse date (Adjust format if needed)
+                exam_date = datetime.datetime.strptime(date_str, "%A, %B %d, %Y").date()
+                days_left = (exam_date - today).days
+                
+                if days_left >= 0:
+                    upcoming_exams.append(f"• **{subject}**: {days_left} days left ({date_str})")
+            except ValueError:
+                continue
+
+    if not upcoming_exams:
+        return "No upcoming exams found in schedule or date format incorrect."
+    
+    return response_text + "\n".join(upcoming_exams)
+
+# --- NEW ENDPOINTS ---
+
+class TopicRequest(BaseModel):
+    topic: str
+
+@app.post("/quiz")
+def generate_quiz(req: TopicRequest):
+    return {"answer": rag.generate_quiz(req.topic)}
+
+@app.post("/summary")
+def get_summary(req: TopicRequest):
+    return {"answer": rag.get_summary(req.topic)}
+
+@app.get("/countdown")
+def countdown():
+    return {"answer": get_exam_countdown()}
 @app.post("/ask")
 def ask(query: Query):
     # Get history for this user (or create empty list if new)

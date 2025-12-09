@@ -211,3 +211,46 @@ class EduMateRAG:
         # 3. Get Answer from LLM
         response = self.llm.invoke(prompt)
         return response.content
+    # ... (keep your existing __init__ and _build_pipeline methods) ...
+
+    # --- NEW FUNCTION: QUIZ GENERATOR ---
+    def generate_quiz(self, topic: str):
+        # 1. Get relevant content
+        docs = self.retriever.invoke(topic)
+        context_text = "\n\n".join([d.page_content for d in docs])
+        
+        # 2. Prompt for Quiz
+        prompt = f"""
+        You are a strict teacher. Create a 3-question Multiple Choice Quiz (MCQ) for a Class 10 student about: "{topic}".
+        Use only the provided context.
+        
+        Context:
+        {context_text}
+        
+        Format:
+        Q1. [Question]
+        (a) [Option]
+        (b) [Option]
+        (c) [Option]
+        (d) [Option]
+        Answer: [Correct Option]
+        
+        (Repeat for 3 questions)
+        """
+        response = self.llm.invoke(prompt)
+        return response.content
+
+    # --- NEW FUNCTION: SUMMARIZER ---
+    def get_summary(self, topic: str):
+        docs = self.retriever.invoke(topic)
+        context_text = "\n\n".join([d.page_content for d in docs])
+        
+        prompt = f"""
+        Summarize the topic "{topic}" for a Class 10 student.
+        Use bullet points. Keep it short and easy to revise.
+        
+        Context:
+        {context_text}
+        """
+        response = self.llm.invoke(prompt)
+        return response.content

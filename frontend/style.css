@@ -94,3 +94,62 @@ button {
     20% { opacity: 1; }
     100% { opacity: 0.2; }
 }
+/* ... existing styles ... */
+
+.tools-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    background: #f2f4f8;
+}
+
+.tool-btn {
+    padding: 8px 15px;
+    background: #28a745; /* Green color */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+    margin-left: 0; /* Override default button margin */
+}
+
+.tool-btn:hover {
+    background: #218838;
+}
+
+.tool-btn:nth-child(2) { background: #ffc107; color: black; } /* Summary - Yellow */
+.tool-btn:nth-child(3) { background: #17a2b8; } /* Countdown - Teal */
+
+/* Mic Button Styling */
+#mic-btn {
+    background: #6c757d; /* Gray by default */
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    font-size: 20px;
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+#mic-btn:hover {
+    background: #5a6268;
+}
+
+/* Animation when listening */
+.listening {
+    background: #dc3545 !important; /* Red when recording */
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+}
