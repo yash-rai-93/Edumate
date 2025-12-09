@@ -80,6 +80,7 @@ function appendMessage(text, sender) {
     box.appendChild(msg);
     box.scrollTop = box.scrollHeight;
 }
+
 function showTyping() {
     const box = document.getElementById("chat-box");
     const typing = document.createElement("div");
@@ -99,6 +100,27 @@ function showTyping() {
 function removeTyping() {
     const el = document.getElementById("typing");
     if (el) el.remove();
+}
+
+// --- RENDER MIND MAP ---
+function appendMindMap(mermaidCode) {
+    const box = document.getElementById("chat-box");
+    
+    // Create container
+    const div = document.createElement("div");
+    // Add classes: message, bot, and mermaid
+    div.classList.add("message", "bot", "mermaid");
+    
+    // Create unique ID
+    const id = "mermaid-" + Math.floor(Math.random() * 10000);
+    div.id = id;
+    div.textContent = mermaidCode;
+    
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+    
+    // Render it
+    mermaid.init(undefined, document.querySelectorAll(".mermaid"));
 }
 
 async function sendMessage() {
@@ -138,95 +160,7 @@ async function sendMessage() {
     }
 }
 
-// ... existing code ...
-
-async function requestFeature(type) {
-    let topic = "";
-    let endpoint = "";
-    
-    // 1. Determine action based on button click
-    if (type === 'quiz') {
-        topic = prompt("Enter the topic for the quiz (e.g., Acids and Bases):");
-        if (!topic) return;
-        appendMessage(`📝 Generating quiz for: ${topic}...`, "user");
-        endpoint = "/quiz";
-    } 
-    else if (type === 'summary') {
-        topic = prompt("Enter the chapter/topic to summarize:");
-        if (!topic) return;
-        appendMessage(`📄 Summarizing: ${topic}...`, "user");
-        endpoint = "/summary";
-    } 
-    else if (type === 'countdown') {
-        appendMessage("⏳ Checking exam schedule...", "user");
-        endpoint = "/countdown";
-    }
-    else if (type === 'mindmap') {
-        topic = prompt("Enter topic for Mind Map:");
-        if (!topic) return;
-        appendMessage(`🧠 Drawing Mind Map for: ${topic}...`, "user");
-        endpoint = "/mindmap";
-    }
-    showTyping();
-
-    try {
-        let body = {};
-        let method = "POST";
-        
-        // Prepare request data
-        if (type === 'countdown') {
-            method = "GET"; 
-        } else {
-            body = JSON.stringify({ topic: topic });
-        }
-
-        const res = await fetch(`http://127.0.0.1:8000${endpoint}`, {
-            method: method,
-            headers: { "Content-Type": "application/json" },
-            body: method === "POST" ? body : null
-        });
-
-        const data = await res.json();
-        removeTyping();
-        
-        if (type === 'mindmap') {
-            appendMindMap(data.answer);
-        } else {
-            appendMessage(data.answer, "bot");
-            
-            // If you want the bot to read the summary/quiz out loud:
-            if (typeof isVoiceActive !== 'undefined' && isVoiceActive) {
-                speakText(data.answer);
-                isVoiceActive = false;
-            }
-        }
-
-    } catch (error) {
-        removeTyping();
-        appendMessage("⚠️ Error fetching data.", "bot");
-    }
-}
-// --- NEW FUNCTION: RENDER MIND MAP ---
-// --- UPDATED FUNCTION: RENDER MIND MAP ---
-function appendMindMap(mermaidCode) {
-    const box = document.getElementById("chat-box");
-    
-    // Create container
-    const div = document.createElement("div");
-    // FIX: Add all classes properly
-    div.classList.add("message", "bot", "mermaid");
-    
-    // Create unique ID
-    const id = "mermaid-" + Math.floor(Math.random() * 10000);
-    div.id = id;
-    div.textContent = mermaidCode;
-    
-    box.appendChild(div);
-    box.scrollTop = box.scrollHeight;
-    
-    // Render it
-    mermaid.init(undefined, document.querySelectorAll(".mermaid"));
-}
+// --- UNIFIED REQUEST FEATURE FUNCTION ---
 async function requestFeature(type) {
     let topic = "";
     let days = "5"; // Default days
@@ -234,8 +168,8 @@ async function requestFeature(type) {
     let body = {};
     let method = "POST";
 
+    // 1. Determine action based on button click
     if (type === 'quiz') {
-        // ... existing quiz logic ...
         topic = prompt("Enter the topic for the quiz (e.g., Acids and Bases):");
         if (!topic) return;
         appendMessage(`📝 Generating quiz for: ${topic}...`, "user");
@@ -243,7 +177,6 @@ async function requestFeature(type) {
         body = JSON.stringify({ topic: topic });
     } 
     else if (type === 'summary') {
-        // ... existing summary logic ...
         topic = prompt("Enter the chapter/topic to summarize:");
         if (!topic) return;
         appendMessage(`📄 Summarizing: ${topic}...`, "user");
@@ -251,17 +184,14 @@ async function requestFeature(type) {
         body = JSON.stringify({ topic: topic });
     } 
     else if (type === 'countdown') {
-        // ... existing countdown logic ...
         appendMessage("⏳ Checking exam schedule...", "user");
         endpoint = "/countdown";
         method = "GET";
     }
-    // --- NEW PLANNER LOGIC ---
     else if (type === 'plan') {
         const input = prompt("Enter Subject and Days (e.g., 'Science, 3'):");
         if (!input) return;
         
-        // Split input into Subject and Days
         const parts = input.split(",");
         topic = parts[0].trim();
         if (parts.length > 1) days = parts[1].trim();
@@ -270,6 +200,17 @@ async function requestFeature(type) {
         endpoint = "/study_plan";
         body = JSON.stringify({ subject: topic, days: days });
     }
+    // Added Mindmap logic back here!
+    else if (type === 'mindmap') {
+        topic = prompt("Enter topic for Mind Map:");
+        if (!topic) return;
+        appendMessage(`🧠 Drawing Mind Map for: ${topic}...`, "user");
+        endpoint = "/mindmap";
+        body = JSON.stringify({ topic: topic });
+    }
+
+    // Safety Check: If no endpoint, stop
+    if (!endpoint) return;
 
     showTyping();
 

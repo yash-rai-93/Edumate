@@ -2,34 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>EduMate – Class 10 AI Assistant</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduMate – AI School Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script>
-    mermaid.initialize({ startOnLoad: true, theme: 'default' });
-    </script>
+    <script>mermaid.initialize({ startOnLoad: true, theme: 'default' });</script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2 class="header">EduMate – Class 10 AI Assistant</h2>
+    <div class="header">
+        <i class="fa-solid fa-graduation-cap"></i> EduMate AI
+    </div>
 
-<div id="chat-box" class="chat-box"></div>
+    <div id="chat-box" class="chat-box">
+        <div class="message bot">
+            Hello! I am EduMate. 👋<br>How can I help you with your studies today?
+        </div>
+    </div>
 
-<div class="tools-bar">
-    <button onclick="requestFeature('quiz')" class="tool-btn">📝 Quiz</button>
-    <button onclick="requestFeature('summary')" class="tool-btn">📄 Summary</button>
-    <button onclick="requestFeature('countdown')" class="tool-btn">⏳ Countdown</button>
-    <button onclick="requestFeature('plan')" class="tool-btn">📅 Planner</button>
-    <button onclick="requestFeature('mindmap')" class="tool-btn" style="background: #6f42c1;">🧠 Mind Map</button>
-</div>
+    <div class="tools-bar">
+        <button onclick="requestFeature('quiz')" class="tool-btn quiz" title="Take a Quiz">
+            <i class="fa-solid fa-clipboard-question"></i> Quiz
+        </button>
+        <button onclick="requestFeature('summary')" class="tool-btn summary" title="Get Summary">
+            <i class="fa-solid fa-file-lines"></i> Summary
+        </button>
+        <button onclick="requestFeature('countdown')" class="tool-btn countdown" title="Check Dates">
+            <i class="fa-solid fa-hourglass-half"></i> Dates
+        </button>
+        <button onclick="requestFeature('plan')" class="tool-btn plan" title="Study Plan">
+            <i class="fa-solid fa-calendar-days"></i> Plan
+        </button>
+        <button onclick="requestFeature('mindmap')" class="tool-btn mindmap" title="Visual Map">
+            <i class="fa-solid fa-sitemap"></i> Map
+        </button>
+    </div>
 
-<div class="input-area">
-    <input id="user-input" type="text" placeholder="Type or speak..." />
-    
-    <button id="mic-btn" onclick="startVoice()">🎤</button>
-    
-    <button onclick="sendMessage()">Send</button>
-</div>
-<script src="script.js"></script>
+    <div class="input-container">
+        <div class="input-area">
+            <input id="user-input" type="text" placeholder="Type a message..." />
+            <button id="mic-btn" onclick="startVoice()"><i class="fa-solid fa-microphone"></i></button>
+            <button id="send-btn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

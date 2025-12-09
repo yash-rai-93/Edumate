@@ -1,176 +1,196 @@
+/* --- GLOBAL STYLES --- */
 body {
-    background: #f2f4f8;
-    font-family: Arial, sans-serif;
-    padding: 0;
+    background: #eef2f6; /* Soft blue-grey background */
+    font-family: 'Poppins', sans-serif;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
+/* --- HEADER --- */
 .header {
-    background: #4285f4;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     padding: 15px;
-    margin: 0;
     text-align: center;
-    font-size: 24px;
-    /* --- NEW LINES TO FIX HEADER --- */
+    font-size: 20px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
-    z-index: 1000; /* Ensures it stays above other content */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
+/* --- CHAT BOX --- */
 .chat-box {
-    height: 80vh;
-    padding: 15px;
+    flex: 1; /* Fills remaining space */
+    padding: 20px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    scroll-behavior: smooth;
+    padding-bottom: 140px; /* Space for input area */
 }
 
+/* Hide Scrollbar but keep functionality */
+.chat-box::-webkit-scrollbar { width: 6px; }
+.chat-box::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 10px; }
+
+/* --- MESSAGES --- */
 .message {
-    padding: 12px;
-    max-width: 70%;
-    margin-bottom: 12px;
-    border-radius: 12px;
-    font-size: 16px;
-    white-space: pre-wrap;
+    padding: 12px 18px;
+    border-radius: 15px;
+    font-size: 15px;
+    line-height: 1.5;
+    max-width: 80%;
+    word-wrap: break-word;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    animation: fadeIn 0.3s ease;
 }
 
-.user {
-    background: #d8e9ff;
-    align-self: flex-end;
-    margin-left: auto;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .bot {
-    background: #e8e8e8;
-    margin-right: auto;
+    background: white;
+    color: #333;
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+}
+
+.user {
+    background: #667eea;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+}
+
+/* Bold text inside messages */
+.message b { font-weight: 600; color: inherit; }
+
+/* --- TOOLS BAR (CHIPS) --- */
+.tools-bar {
+    display: flex;
+    gap: 10px;
+    padding: 10px 15px;
+    overflow-x: auto; /* Horizontal scroll on mobile */
+    background: #eef2f6; /* Blend with body */
+    position: fixed;
+    bottom: 70px; /* Above input bar */
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+    z-index: 99;
+}
+
+.tool-btn {
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    white-space: nowrap;
+}
+
+.tool-btn:hover { transform: translateY(-2px); }
+
+/* Tool Colors */
+.quiz { background: #28a745; }
+.summary { background: #ffc107; color: #333; }
+.countdown { background: #17a2b8; }
+.plan { background: #fd7e14; }
+.mindmap { background: #6f42c1; }
+
+/* --- INPUT AREA --- */
+.input-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    padding: 10px 20px 20px 20px;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+    box-sizing: border-box;
 }
 
 .input-area {
     display: flex;
-    padding: 10px;
-    background: white;
-    border-top: 1px solid #ccc;
+    align-items: center;
+    background: #f1f3f4;
+    border-radius: 30px;
+    padding: 5px 15px;
+    gap: 10px;
 }
 
 input {
     flex: 1;
-    padding: 10px;
-    font-size: 16px;
-}
-
-button {
-    padding: 10px 20px;
-    background: #4285f4;
-    color: white;
     border: none;
-    cursor: pointer;
+    background: transparent;
+    padding: 12px;
     font-size: 16px;
-    margin-left: 10px;
+    outline: none;
 }
 
-/* --------------------------- */
-/* Typing Indicator Animation  */
-/* --------------------------- */
-
-.typing {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.dot {
-    width: 8px;
-    height: 8px;
-    background: #666;
-    border-radius: 50%;
-    animation: blink 1.4s infinite both;
-}
-
-.dot:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.dot:nth-child(3) {
-    animation-delay: 0.4s;
-}
-
-@keyframes blink {
-    0% { opacity: 0.2; }
-    20% { opacity: 1; }
-    100% { opacity: 0.2; }
-}
-/* ... existing styles ... */
-
-.tools-bar {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px;
-    background: #f2f4f8;
-}
-
-.tool-btn {
-    padding: 8px 15px;
-    background: #28a745; /* Green color */
-    color: white;
+button#send-btn, button#mic-btn {
     border: none;
-    border-radius: 20px;
+    background: transparent;
+    font-size: 18px;
     cursor: pointer;
-    font-size: 14px;
-    transition: background 0.3s;
-    margin-left: 0; /* Override default button margin */
-}
-
-.tool-btn:hover {
-    background: #218838;
-}
-
-.tool-btn:nth-child(2) { background: #ffc107; color: black; } /* Summary - Yellow */
-.tool-btn:nth-child(3) { background: #17a2b8; } /* Countdown - Teal */
-.tool-btn:nth-child(4) { background: #fd7e14; } /* Planner - Orange */
-/* Mic Button Styling */
-#mic-btn {
-    background: #6c757d; /* Gray by default */
+    color: #666;
+    padding: 8px;
     border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    padding: 0;
-    font-size: 20px;
-    margin-right: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
+    transition: background 0.2s;
 }
 
-#mic-btn:hover {
-    background: #5a6268;
-}
+button#send-btn:hover { color: #667eea; background: #e0e7ff; }
+button#mic-btn:hover { color: #dc3545; background: #ffe0e0; }
 
-/* Animation when listening */
+/* Mic Active Animation */
 .listening {
-    background: #dc3545 !important; /* Red when recording */
+    color: #dc3545 !important;
     animation: pulse 1.5s infinite;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
-    70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+/* --- TYPING INDICATOR --- */
+.typing { display: flex; gap: 5px; }
+.dot {
+    width: 6px; height: 6px;
+    background: #aaa;
+    border-radius: 50%;
+    animation: blink 1.4s infinite;
 }
-/* --- MIND MAP STYLING --- */
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
 
-/* 1. Allow Mind Map bubbles to be wider (95% of screen) */
+@keyframes blink { 0%, 100% { opacity: 0.2; } 20% { opacity: 1; } }
+
+/* --- MERMAID DIAGRAMS --- */
 .message.mermaid {
-    max-width: 95%; 
-    background: white; /* White background looks better for diagrams */
-    border: 2px solid #e0e0e0;
+    width: 100%;
+    max-width: 95%;       /* Use almost full screen width */
+    background: white;
+    border: 1px solid #ddd;
+    overflow-x: auto;     /* Adds scroll ONLY if diagram is massive */
+    padding: 10px;        /* Gives the diagram some breathing room */
 }
 
-/* 2. Force the Diagram (SVG) to fit inside the box */
-.mermaid svg {
-    max-width: 100%;    /* Shrink width if too big */
-    height: auto;       /* Maintain aspect ratio */
-    display: block;     /* Removes extra gap at bottom */
-    margin: 0 auto;     /* Center align */
+.mermaid svg { 
+    max-width: 100%; 
+    height: auto; 
+    display: block;       /* Prevents bottom gap */
+    margin: 0 auto;       /* Centers the diagram */
 }
