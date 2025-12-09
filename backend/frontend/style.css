@@ -52,6 +52,7 @@ body {
     word-wrap: break-word;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     animation: fadeIn 0.3s ease;
+    flex-shrink: 0;
 }
 
 @keyframes fadeIn {
@@ -179,18 +180,25 @@ button#mic-btn:hover { color: #dc3545; background: #ffe0e0; }
 @keyframes blink { 0%, 100% { opacity: 0.2; } 20% { opacity: 1; } }
 
 /* --- MERMAID DIAGRAMS --- */
+/* --- MERMAID DIAGRAMS --- */
 .message.mermaid {
     width: 100%;
-    max-width: 95%;       /* Use almost full screen width */
+    max-width: 95%;       
     background: white;
     border: 1px solid #ddd;
-    overflow-x: auto;     /* Adds scroll ONLY if diagram is massive */
-    padding: 10px;        /* Gives the diagram some breathing room */
+    border-radius: 15px;
+    padding: 20px;        /* Adds space inside the box */
+    
+    /* IMPORTANT: Allow scrolling if the diagram is big */
+    overflow-x: auto;     
+    overflow-y: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .mermaid svg { 
-    max-width: 100%; 
+    /* IMPORTANT: Do not force it to shrink! */
+    max-width: none !important; 
     height: auto; 
-    display: block;       /* Prevents bottom gap */
-    margin: 0 auto;       /* Centers the diagram */
+    display: block;       
+    margin: 0 auto;       
 }

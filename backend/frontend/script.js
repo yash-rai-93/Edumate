@@ -102,27 +102,37 @@ function removeTyping() {
     if (el) el.remove();
 }
 
-// --- RENDER MIND MAP ---
-function appendMindMap(mermaidCode) {
+// --- UPDATED FUNCTION: RENDER MIND MAP ---
+async function appendMindMap(mermaidCode) {
     const box = document.getElementById("chat-box");
     
     // Create container
     const div = document.createElement("div");
-    // Add classes: message, bot, and mermaid
     div.classList.add("message", "bot", "mermaid");
     
-    // Create unique ID
+    // Create unique ID for this specific diagram
     const id = "mermaid-" + Math.floor(Math.random() * 10000);
     div.id = id;
-    div.textContent = mermaidCode;
+    
+    // 1. Clean the code (Remove ```mermaid and ``` markers if the AI added them)
+    // This prevents syntax errors which also cause the crash
+    let cleanCode = mermaidCode.replace(/```mermaid/g, "").replace(/```/g, "").trim();
+    div.textContent = cleanCode;
     
     box.appendChild(div);
     box.scrollTop = box.scrollHeight;
     
-    // Render it
-    mermaid.init(undefined, document.querySelectorAll(".mermaid"));
+    try {
+        // 2. IMPORTANT: Only initialize THIS specific element (div), NOT querySelectorAll(".mermaid")
+        await mermaid.init(undefined, div);
+    } catch (error) {
+        console.error("Mermaid Render Error:", error);
+        // If it fails, show a friendly error instead of crashing the console
+        div.style.color = "red";
+        div.style.background = "#ffe6e6";
+        div.innerHTML = "⚠️ <b>Could not render diagram.</b><br>The AI generated invalid syntax.";
+    }
 }
-
 async function sendMessage() {
     const input = document.getElementById("user-input");
     const message = input.value.trim();
