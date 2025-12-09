@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>EduMate – Class 10 AI Assistant</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
 </head>
 <body>
 
@@ -15,6 +19,8 @@
     <button onclick="requestFeature('quiz')" class="tool-btn">📝 Quiz</button>
     <button onclick="requestFeature('summary')" class="tool-btn">📄 Summary</button>
     <button onclick="requestFeature('countdown')" class="tool-btn">⏳ Countdown</button>
+    <button onclick="requestFeature('plan')" class="tool-btn">📅 Planner</button>
+    <button onclick="requestFeature('mindmap')" class="tool-btn" style="background: #6f42c1;">🧠 Mind Map</button>
 </div>
 
 <div class="input-area">

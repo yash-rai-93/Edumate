@@ -161,7 +161,12 @@ async function requestFeature(type) {
         appendMessage("⏳ Checking exam schedule...", "user");
         endpoint = "/countdown";
     }
-
+    else if (type === 'mindmap') {
+        topic = prompt("Enter topic for Mind Map:");
+        if (!topic) return;
+        appendMessage(`🧠 Drawing Mind Map for: ${topic}...`, "user");
+        endpoint = "/mindmap";
+    }
     showTyping();
 
     try {
@@ -184,11 +189,116 @@ async function requestFeature(type) {
         const data = await res.json();
         removeTyping();
         
-        // Show result
-        appendMessage(data.answer, "bot");
+        if (type === 'mindmap') {
+            appendMindMap(data.answer);
+        } else {
+            appendMessage(data.answer, "bot");
+            
+            // If you want the bot to read the summary/quiz out loud:
+            if (typeof isVoiceActive !== 'undefined' && isVoiceActive) {
+                speakText(data.answer);
+                isVoiceActive = false;
+            }
+        }
 
     } catch (error) {
         removeTyping();
         appendMessage("⚠️ Error fetching data.", "bot");
+    }
+}
+// --- NEW FUNCTION: RENDER MIND MAP ---
+// --- UPDATED FUNCTION: RENDER MIND MAP ---
+function appendMindMap(mermaidCode) {
+    const box = document.getElementById("chat-box");
+    
+    // Create container
+    const div = document.createElement("div");
+    // FIX: Add all classes properly
+    div.classList.add("message", "bot", "mermaid");
+    
+    // Create unique ID
+    const id = "mermaid-" + Math.floor(Math.random() * 10000);
+    div.id = id;
+    div.textContent = mermaidCode;
+    
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+    
+    // Render it
+    mermaid.init(undefined, document.querySelectorAll(".mermaid"));
+}
+async function requestFeature(type) {
+    let topic = "";
+    let days = "5"; // Default days
+    let endpoint = "";
+    let body = {};
+    let method = "POST";
+
+    if (type === 'quiz') {
+        // ... existing quiz logic ...
+        topic = prompt("Enter the topic for the quiz (e.g., Acids and Bases):");
+        if (!topic) return;
+        appendMessage(`📝 Generating quiz for: ${topic}...`, "user");
+        endpoint = "/quiz";
+        body = JSON.stringify({ topic: topic });
+    } 
+    else if (type === 'summary') {
+        // ... existing summary logic ...
+        topic = prompt("Enter the chapter/topic to summarize:");
+        if (!topic) return;
+        appendMessage(`📄 Summarizing: ${topic}...`, "user");
+        endpoint = "/summary";
+        body = JSON.stringify({ topic: topic });
+    } 
+    else if (type === 'countdown') {
+        // ... existing countdown logic ...
+        appendMessage("⏳ Checking exam schedule...", "user");
+        endpoint = "/countdown";
+        method = "GET";
+    }
+    // --- NEW PLANNER LOGIC ---
+    else if (type === 'plan') {
+        const input = prompt("Enter Subject and Days (e.g., 'Science, 3'):");
+        if (!input) return;
+        
+        // Split input into Subject and Days
+        const parts = input.split(",");
+        topic = parts[0].trim();
+        if (parts.length > 1) days = parts[1].trim();
+        
+        appendMessage(`📅 Creating a ${days}-day study plan for ${topic}...`, "user");
+        endpoint = "/study_plan";
+        body = JSON.stringify({ subject: topic, days: days });
+    }
+
+    showTyping();
+
+    try {
+        const res = await fetch(`http://127.0.0.1:8000${endpoint}`, {
+            method: method,
+            headers: { "Content-Type": "application/json" },
+            body: method === "POST" ? body : null
+        });
+
+        const data = await res.json();
+        removeTyping();
+        
+        // Render Mind Map OR Text Answer
+        if (type === 'mindmap') {
+            appendMindMap(data.answer);
+        } else {
+            appendMessage(data.answer, "bot");
+            
+            // Voice Output (Optional)
+            if (typeof isVoiceActive !== 'undefined' && isVoiceActive) {
+                speakText(data.answer);
+                isVoiceActive = false;
+            }
+        }
+
+    } catch (error) {
+        removeTyping();
+        appendMessage("⚠️ Error fetching data.", "bot");
+        console.error(error);
     }
 }

@@ -68,6 +68,9 @@ sessions = {}
 class Query(BaseModel):
     question: str
     session_id: str  # <--- New Field
+class PlanRequest(BaseModel):
+    subject: str
+    days: str
 # --- HELPER: Calculate Exam Countdown ---
 def get_exam_countdown():
     schedule_path = "data/exam_schedule/Schedule.txt"
@@ -122,6 +125,11 @@ def get_summary(req: TopicRequest):
 @app.get("/countdown")
 def countdown():
     return {"answer": get_exam_countdown()}
+
+@app.post("/mindmap")
+def generate_mindmap(req: TopicRequest):
+    return {"answer": rag.generate_mindmap(req.topic)}
+
 @app.post("/ask")
 def ask(query: Query):
     # Get history for this user (or create empty list if new)
@@ -140,6 +148,10 @@ def ask(query: Query):
     sessions[query.session_id] = user_history
 
     return {"answer": answer}
+
+@app.post("/study_plan")
+def study_plan(req: PlanRequest):
+    return {"answer": rag.generate_study_plan(req.subject, req.days)}
 
 @app.get("/")
 def root():

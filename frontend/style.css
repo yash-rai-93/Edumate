@@ -12,6 +12,11 @@ body {
     margin: 0;
     text-align: center;
     font-size: 24px;
+    /* --- NEW LINES TO FIX HEADER --- */
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Ensures it stays above other content */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .chat-box {
@@ -122,7 +127,7 @@ button {
 
 .tool-btn:nth-child(2) { background: #ffc107; color: black; } /* Summary - Yellow */
 .tool-btn:nth-child(3) { background: #17a2b8; } /* Countdown - Teal */
-
+.tool-btn:nth-child(4) { background: #fd7e14; } /* Planner - Orange */
 /* Mic Button Styling */
 #mic-btn {
     background: #6c757d; /* Gray by default */
@@ -152,4 +157,20 @@ button {
     0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
     70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+}
+/* --- MIND MAP STYLING --- */
+
+/* 1. Allow Mind Map bubbles to be wider (95% of screen) */
+.message.mermaid {
+    max-width: 95%; 
+    background: white; /* White background looks better for diagrams */
+    border: 2px solid #e0e0e0;
+}
+
+/* 2. Force the Diagram (SVG) to fit inside the box */
+.mermaid svg {
+    max-width: 100%;    /* Shrink width if too big */
+    height: auto;       /* Maintain aspect ratio */
+    display: block;     /* Removes extra gap at bottom */
+    margin: 0 auto;     /* Center align */
 }

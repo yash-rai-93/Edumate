@@ -254,3 +254,57 @@ class EduMateRAG:
         """
         response = self.llm.invoke(prompt)
         return response.content
+    # --- NEW FUNCTION: MIND MAP GENERATOR ---
+    def generate_mindmap(self, topic: str):
+        # 1. Get context
+        docs = self.retriever.invoke(topic)
+        context_text = "\n\n".join([d.page_content for d in docs])
+        
+        # 2. Prompt for Mermaid.js Code
+        prompt = f"""
+        Create a Mermaid.js flowchart code to explain: "{topic}".
+        Use the following context:
+        {context_text}
+        
+        Rules:
+        - Return ONLY the Mermaid code.
+        - Start with 'graph TD'.
+        - Do not use brackets () or special characters inside node text (use simple text).
+        - Keep it simple (max 10-15 nodes).
+        - No markdown formatting (no ```mermaid). Just raw code.
+        
+        Example Output:
+        graph TD
+        A[Topic] --> B[Subtopic]
+        A --> C[Another Subtopic]
+        """
+        response = self.llm.invoke(prompt)
+        
+        # Clean up code (remove markdown backticks if LLM adds them)
+        clean_code = response.content.replace("```mermaid", "").replace("```", "").strip()
+        return clean_code
+    # --- NEW FUNCTION: STUDY PLANNER ---
+    def generate_study_plan(self, subject: str, days: str):
+        # 1. Fetch Syllabus for the subject
+        docs = self.retriever.invoke(f"{subject} syllabus chapters")
+        context_text = "\n\n".join([d.page_content for d in docs])
+        
+        # 2. Prompt the AI
+        prompt = f"""
+        You are an expert academic planner for Class 10.
+        Create a structured {days}-day study plan for the subject: "{subject}".
+        
+        Use the syllabus content below to divide topics logically. 
+        Ensure difficult chapters are given enough time.
+        
+        Syllabus Context:
+        {context_text}
+        
+        Format:
+        **Day 1:** [Topics to cover] - [Specific focus area]
+        **Day 2:** ...
+        ...
+        **Tips:** [One quick study tip]
+        """
+        response = self.llm.invoke(prompt)
+        return response.content
