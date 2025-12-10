@@ -6,7 +6,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
-from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
 
 # Load environment variables
 load_dotenv()
@@ -19,13 +19,15 @@ class EduMateRAG:
         if not hf_token:
             raise ValueError("HUGGINGFACEHUB_API_TOKEN not found in environment variables!")
 
-        self.embeddings = HuggingFaceInferenceAPIEmbeddings(
-            api_key=hf_token,
-            model_name="sentence-transformers/all-MiniLM-L6-v2")
-        
+        self.embeddings = HuggingFaceEndpointEmbeddings(
+            model="sentence-transformers/all-MiniLM-L6-v2",
+            task="feature-extraction",
+            huggingfacehub_api_token=hf_token
+        )
         # 2. Setup LLM (Groq - Free Tier)
         # Yeh actual answer generate karega
         api_key = os.getenv("GROQ_API_KEY")
+        print(f"DEBUG: Loaded API Key: {api_key[:10]}... (Check if this matches your new key)")
         if not api_key:
             raise ValueError("GROQ_API_KEY not found in .env file")
             
