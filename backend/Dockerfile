@@ -18,5 +18,5 @@ COPY . .
 EXPOSE 8000
 
 # 7. Command to run the app
-# using 0.0.0.0 is crucial for Docker containers
-CMD ["python", "app.py"]
+# Force 1 worker to save RAM and disable access logs for speed
+CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1 --no-access-log"]
