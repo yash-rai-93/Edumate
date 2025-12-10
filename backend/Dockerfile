@@ -19,4 +19,4 @@ EXPOSE 8000
 
 # 7. Command to run the app
 # using 0.0.0.0 is crucial for Docker containers
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "app.py"]
