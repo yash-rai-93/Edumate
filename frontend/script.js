@@ -225,7 +225,7 @@ async function requestFeature(type) {
     showTyping();
 
     try {
-        const res = await fetch(`http://127.0.0.1:8000${endpoint}`, {
+        const res = await fetch(`${endpoint}`, {
             method: method,
             headers: { "Content-Type": "application/json" },
             body: method === "POST" ? body : null
