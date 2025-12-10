@@ -165,5 +165,5 @@ def health_check():
 def read_root():
     return FileResponse("frontend/index.html")
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
+    port = int(os.environ.get("PORT", 7860))
     uvicorn.run(app, host="0.0.0.0", port=port)

@@ -1,22 +1,25 @@
-# 1. Use an official Python image
+# 1. Use Python 3.10
 FROM python:3.10-slim
 
-# 2. Set the working directory inside the container
+# 2. Set up a non-root user (Required for Hugging Face Spaces)
+RUN useradd -m -u 1000 user
+USER user
+ENV PATH="/home/user/.local/bin:$PATH"
+
+# 3. Set Working Directory
 WORKDIR /app
 
-# 3. Copy requirements first (for caching)
-COPY requirements.txt .
+# 4. Copy Requirements & Install
+# We copy with ownership set to 'user' so we can write files if needed
+COPY --chown=user ./requirements.txt requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
-# 4. Install dependencies
-# We add --no-cache-dir to keep the image small
-RUN pip install --no-cache-dir -r requirements.txt
+# 5. Copy the Application Code
+COPY --chown=user . .
 
-# 5. Copy the rest of the application code
-COPY . .
+# 6. Expose the Hugging Face Port
+EXPOSE 7860
 
-# 6. Expose the port (Render usually uses 10000, but it sets $PORT env var)
-EXPOSE 8000
-
-# 7. Command to run the app
-# Force 1 worker to save RAM and disable access logs for speed
-CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1 --no-access-log"]
+# 7. Start the App
+CMD ["python", "app.py"]
